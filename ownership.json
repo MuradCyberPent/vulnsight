@@ -1,0 +1,361 @@
+{
+  "note": "Who commits which files. Used by tools/git_plan.py and GIT_WORKFLOW.md.",
+  "phases": [
+    {
+      "id": "setup",
+      "title": "Setup (before the modules)",
+      "week": "Week 0",
+      "integrator": 1,
+      "members": {
+        "1": {
+          "branch": "setup/member1-project-structure",
+          "commits": [
+            {
+              "message": "Add project structure, settings and database connection",
+              "files": [
+                ".gitignore",
+                "backend/requirements.txt",
+                "backend/requirements-dev.txt",
+                "backend/.env.example",
+                "backend/app/__init__.py",
+                "backend/app/core/__init__.py",
+                "backend/app/core/config.py",
+                "backend/app/core/database.py"
+              ]
+            },
+            {
+              "message": "Add database tables from the ER diagram: User, Scan and Finding",
+              "files": [
+                "backend/app/core/models/__init__.py",
+                "backend/app/core/models/user.py",
+                "backend/app/core/models/scan.py",
+                "backend/app/core/models/finding.py"
+              ]
+            }
+          ]
+        },
+        "2": {
+          "branch": "setup/member2-plugin-system",
+          "commits": [
+            {
+              "message": "Add plug-in system: hooks, check registry and module discovery",
+              "files": [
+                "backend/app/core/hooks.py",
+                "backend/app/core/checks.py",
+                "backend/app/core/discovery.py",
+                "backend/app/core/finding_utils.py",
+                "backend/app/core/scan_views.py",
+                "backend/app/modules/__init__.py",
+                "backend/app/modules/users/__init__.py",
+                "backend/app/modules/users/routes/__init__.py",
+                "backend/app/modules/scanning/__init__.py",
+                "backend/app/modules/scanning/routes/__init__.py",
+                "backend/app/modules/scanning/checks/__init__.py",
+                "backend/app/modules/analysis/__init__.py",
+                "backend/app/modules/analysis/routes/__init__.py"
+              ]
+            },
+            {
+              "message": "Add API entry point and test setup",
+              "files": [
+                "backend/app/main.py",
+                "backend/tests/__init__.py",
+                "backend/tests/conftest.py"
+              ]
+            }
+          ]
+        },
+        "3": {
+          "branch": "setup/member3-frontend-and-docs",
+          "commits": [
+            {
+              "message": "Add frontend foundation: Vite, React, Tailwind and shared files",
+              "files": [
+                "frontend/package.json",
+                "frontend/package-lock.json",
+                "frontend/vite.config.js",
+                "frontend/postcss.config.js",
+                "frontend/tailwind.config.js",
+                "frontend/index.html",
+                "frontend/.env.example",
+                "frontend/vercel.json",
+                "frontend/src/index.css",
+                "frontend/src/main.jsx",
+                "frontend/src/App.jsx",
+                "frontend/src/shared/api.js",
+                "frontend/src/shared/auth.jsx",
+                "frontend/src/shared/util.js",
+                "frontend/src/shared/pageRegistry.js",
+                "frontend/src/shared/components/CountChips.jsx",
+                "frontend/src/shared/components/Layout.jsx",
+                "frontend/src/shared/components/Logo.jsx",
+                "frontend/src/shared/components/SeverityBadge.jsx",
+                "frontend/src/shared/components/Welcome.jsx"
+              ]
+            },
+            {
+              "message": "Add README, deployment file and Git workflow guide",
+              "files": [
+                "README.md",
+                "render.yaml",
+                "GIT_WORKFLOW.md",
+                "ownership.json",
+                "tools/git_plan.py"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1",
+      "title": "Module 1: User Management and Security",
+      "week": "Week 1",
+      "integrator": 1,
+      "members": {
+        "1": {
+          "branch": "module1/member1-authentication",
+          "commits": [
+            {
+              "message": "Add Secure Authentication: registration, login and bcrypt password hashing",
+              "files": [
+                "backend/app/modules/users/schemas.py",
+                "backend/app/modules/users/security.py",
+                "backend/app/modules/users/routes/auth.py"
+              ]
+            },
+            {
+              "message": "Add Login and Register pages with session handling",
+              "files": [
+                "frontend/src/modules/users/components/AuthShell.jsx",
+                "frontend/src/modules/users/pages/Login.jsx",
+                "frontend/src/modules/users/pages/Register.jsx"
+              ]
+            }
+          ]
+        },
+        "2": {
+          "branch": "module1/member2-security-rules",
+          "commits": [
+            {
+              "message": "Add Account Lockout after 5 failed logins",
+              "files": [
+                "backend/app/modules/users/lockout.py"
+              ]
+            },
+            {
+              "message": "Add Scan Permission Check: scope guard and scan limit",
+              "files": [
+                "backend/app/modules/users/scan_permission.py"
+              ]
+            }
+          ]
+        },
+        "3": {
+          "branch": "module1/member3-admin-and-privacy",
+          "commits": [
+            {
+              "message": "Add Private Workspace: users only reach their own scans",
+              "files": [
+                "backend/app/modules/users/workspace.py"
+              ]
+            },
+            {
+              "message": "Add Admin role check and admin API for users and scans",
+              "files": [
+                "backend/app/modules/users/admin_access.py",
+                "backend/app/modules/users/routes/admin.py",
+                "backend/create_admin.py"
+              ]
+            },
+            {
+              "message": "Add Admin page",
+              "files": [
+                "frontend/src/modules/users/pages/Admin.jsx"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "2",
+      "title": "Module 2: Vulnerability Scanning Engine",
+      "week": "Week 2",
+      "integrator": 2,
+      "members": {
+        "1": {
+          "branch": "module2/member1-scan-setup-and-progress",
+          "commits": [
+            {
+              "message": "Add Port Scanning and Service Detection",
+              "files": [
+                "backend/app/modules/scanning/checks/ports.py"
+              ]
+            },
+            {
+              "message": "Add Scan Profiles and background scan runner",
+              "files": [
+                "backend/app/modules/scanning/profiles.py",
+                "backend/app/modules/scanning/runner.py"
+              ]
+            },
+            {
+              "message": "Add New Scan Setup: start a scan with a target, profile and ports",
+              "files": [
+                "backend/app/modules/scanning/schemas.py",
+                "backend/app/modules/scanning/routes/scans.py"
+              ]
+            },
+            {
+              "message": "Add Live Scan Progress API",
+              "files": [
+                "backend/app/modules/scanning/routes/progress.py"
+              ]
+            },
+            {
+              "message": "Add New scan page and live progress panel",
+              "files": [
+                "frontend/src/modules/scanning/pages/NewScan.jsx",
+                "frontend/src/modules/scanning/pages/ScanProgress.jsx",
+                "frontend/src/modules/scanning/components/ProgressPanel.jsx"
+              ]
+            }
+          ]
+        },
+        "2": {
+          "branch": "module2/member2-software-web-ssl-checks",
+          "commits": [
+            {
+              "message": "Add Outdated Software Detection against the local CVE database",
+              "files": [
+                "backend/app/modules/scanning/checks/cve.py",
+                "backend/data/cve.json"
+              ]
+            },
+            {
+              "message": "Add Web Security Headers Check",
+              "files": [
+                "backend/app/modules/scanning/checks/headers.py"
+              ]
+            },
+            {
+              "message": "Add SSL/TLS Certificate Check",
+              "files": [
+                "backend/app/modules/scanning/checks/ssl_check.py"
+              ]
+            }
+          ]
+        },
+        "3": {
+          "branch": "module2/member3-files-dns-cloud-checks",
+          "commits": [
+            {
+              "message": "Add Exposed File Detection",
+              "files": [
+                "backend/app/modules/scanning/checks/exposed.py"
+              ]
+            },
+            {
+              "message": "Add DNS Analysis",
+              "files": [
+                "backend/app/modules/scanning/checks/dns_check.py"
+              ]
+            },
+            {
+              "message": "Add Subdomain Discovery",
+              "files": [
+                "backend/app/modules/scanning/checks/subdomains.py"
+              ]
+            },
+            {
+              "message": "Add Cloud Storage Check",
+              "files": [
+                "backend/app/modules/scanning/checks/cloud.py"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "3",
+      "title": "Module 3: Analysis, Reporting and Dashboard",
+      "week": "Week 3",
+      "integrator": 3,
+      "members": {
+        "1": {
+          "branch": "module3/member1-dashboard-and-reports",
+          "commits": [
+            {
+              "message": "Add User Dashboard",
+              "files": [
+                "backend/app/modules/analysis/routes/dashboard.py",
+                "frontend/src/modules/analysis/pages/Dashboard.jsx"
+              ]
+            },
+            {
+              "message": "Add Report Export in HTML, JSON and TXT",
+              "files": [
+                "backend/app/modules/analysis/reports.py",
+                "backend/app/modules/analysis/templates/report.html",
+                "backend/app/modules/analysis/routes/reports.py",
+                "frontend/src/modules/analysis/components/ReportButtons.jsx"
+              ]
+            }
+          ]
+        },
+        "2": {
+          "branch": "module3/member2-risk-and-results",
+          "commits": [
+            {
+              "message": "Add Risk Scoring",
+              "files": [
+                "backend/app/modules/analysis/scoring.py"
+              ]
+            },
+            {
+              "message": "Add risk dial and finding cards for Beginner Mode",
+              "files": [
+                "frontend/src/modules/analysis/components/RiskDial.jsx",
+                "frontend/src/modules/analysis/components/FindingCard.jsx"
+              ]
+            },
+            {
+              "message": "Add Scan Results View with severity filters",
+              "files": [
+                "frontend/src/modules/analysis/pages/ScanDetail.jsx"
+              ]
+            }
+          ]
+        },
+        "3": {
+          "branch": "module3/member3-history-and-comparison",
+          "commits": [
+            {
+              "message": "Add Scan History with delete",
+              "files": [
+                "backend/app/modules/analysis/routes/history.py",
+                "frontend/src/modules/analysis/pages/History.jsx"
+              ]
+            },
+            {
+              "message": "Add Scan Comparison",
+              "files": [
+                "backend/app/modules/analysis/routes/compare.py",
+                "frontend/src/modules/analysis/pages/Compare.jsx"
+              ]
+            },
+            {
+              "message": "Add automated tests",
+              "files": [
+                "backend/tests/test_core.py",
+                "backend/tests/test_api.py"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
