@@ -1,0 +1,43 @@
+{
+  "_note": "Small TEACHING database. Add your own entries. min_version is inclusive, fixed_in is exclusive. Always verify against nvd.nist.gov before acting.",
+  "products": {
+    "OpenSSH": "OpenSSH[_ ]([0-9]+(?:\\.[0-9]+)*)",
+    "Apache httpd": "Apache/([0-9]+(?:\\.[0-9]+)*)",
+    "nginx": "nginx/([0-9]+(?:\\.[0-9]+)*)",
+    "vsftpd": "vsFTPd ([0-9]+(?:\\.[0-9]+)*)",
+    "ProFTPD": "ProFTPD ([0-9]+(?:\\.[0-9]+)*)",
+    "Microsoft IIS": "Microsoft-IIS/([0-9]+(?:\\.[0-9]+)*)",
+    "PHP": "PHP/([0-9]+(?:\\.[0-9]+)*)",
+    "MySQL": "MySQL ([0-9]+(?:\\.[0-9]+)*)",
+    "lighttpd": "lighttpd/([0-9]+(?:\\.[0-9]+)*)"
+  },
+  "vulnerabilities": [
+    {"id": "CVE-2018-15473", "product": "OpenSSH", "min_version": "0", "fixed_in": "7.8", "severity": "Medium", "cvss": 5.3,
+     "description": "Attackers can tell which usernames exist on the server (username enumeration).",
+     "fix": "Upgrade OpenSSH to 7.8 or newer."},
+    {"id": "CVE-2024-6387", "product": "OpenSSH", "min_version": "8.5", "fixed_in": "9.8", "severity": "High", "cvss": 8.1,
+     "description": "'regreSSHion': a race condition that may allow remote code execution as root.",
+     "fix": "Upgrade OpenSSH to 9.8 or newer."},
+    {"id": "CVE-2021-41773", "product": "Apache httpd", "min_version": "2.4.49", "fixed_in": "2.4.51", "severity": "Critical", "cvss": 9.8,
+     "description": "Path traversal that can expose files outside the web folder and may allow remote code execution.",
+     "fix": "Upgrade Apache httpd to the latest 2.4.x release."},
+    {"id": "CVE-2021-44790", "product": "Apache httpd", "min_version": "0", "fixed_in": "2.4.52", "severity": "Critical", "cvss": 9.8,
+     "description": "Buffer overflow in mod_lua that may allow remote code execution.",
+     "fix": "Upgrade Apache httpd to 2.4.52 or newer."},
+    {"id": "CVE-2021-23017", "product": "nginx", "min_version": "0.6.18", "fixed_in": "1.20.1", "severity": "High", "cvss": 7.7,
+     "description": "Off-by-one error in the DNS resolver that can crash nginx or allow code execution.",
+     "fix": "Upgrade nginx to 1.20.1 or newer."},
+    {"id": "CVE-2011-2523", "product": "vsftpd", "min_version": "2.3.4", "fixed_in": "2.3.5", "severity": "Critical", "cvss": 9.8,
+     "description": "Backdoored release: a smiley face in the username opens a root shell.",
+     "fix": "Replace vsftpd 2.3.4 with a clean, current version immediately."},
+    {"id": "CVE-2015-3306", "product": "ProFTPD", "min_version": "1.3.5", "fixed_in": "1.3.6", "severity": "Critical", "cvss": 9.8,
+     "description": "mod_copy lets unauthenticated users copy files on the server (can lead to code execution). Verify your exact patch level.",
+     "fix": "Upgrade ProFTPD or disable mod_copy."},
+    {"id": "CVE-2017-7269", "product": "Microsoft IIS", "min_version": "6.0", "fixed_in": "6.1", "severity": "Critical", "cvss": 9.8,
+     "description": "Buffer overflow in IIS 6.0 WebDAV that allows remote code execution.",
+     "fix": "IIS 6.0 is end-of-life. Move to a supported Windows Server and IIS version."},
+    {"id": "EOL-PHP", "product": "PHP", "min_version": "0", "fixed_in": "8.1", "severity": "High", "cvss": 0,
+     "description": "This PHP version no longer receives security fixes, so new bugs will never be patched.",
+     "fix": "Upgrade to a supported PHP version (see php.net/supported-versions)."}
+  ]
+}
